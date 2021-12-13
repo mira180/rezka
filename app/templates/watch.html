@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="box watch" data-id="{{ item._id }}" data-type="{{ item.type }}">
+        <h1 class="box_title">Смотреть</h1>
+        <div class="translate tab_list">
+            {% for translator in item.payload %}
+            <div class="tab" data-id="{{ translator.id }}">{{ translator.title }}</div>
+            {% endfor %}
+        </div>
+        {% for translator in item.payload %}
+        <div class="seasons tab_list hidden" data-translator_id="{{ translator.id }}">
+            {% for season in translator.seasons %}
+            <div class="tab" data-id="{{ season.id }}">{{ season.title }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% for translator in item.payload %}
+        {% for season in translator.seasons %}
+        <div class="series tab_list hidden" data-translator_id="{{ translator.id }}" data-season_id="{{ season.id }}">
+            {% for episode in season.episodes %}
+            <div class="tab" data-id="{{ episode.id }}">{{ episode.title }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% endfor %}
+
+        <div class="video_container loading">
+            <div class="loader"></div>
+            <video class="video hide" preload="metadata" crossorigin="anonymous">
+                <source src="" type="video/mp4"></source>
+            </video>
+            <div class="video_controls hide">
+                <div class="controls_row">
+                    <div class="time">
+                        <time class="time_elapsed">00:00</time>
+                        <span>&nbsp;/&nbsp;</span>
+                        <time class="duration">00:00</time>
+                    </div>
+                    <div class="side_buttons">
+                        <button class="play control" type="button">
+                            <span class="material-icons">
+                                play_arrow
+                            </span>
+                            <span class="material-icons hidden">
+                                pause
+                            </span>
+                        </button>
+                        <button class="fullscreen control" type="button">
+                            <span class="material-icons">
+                                fullscreen
+                            </span>
+                        </button>
+                        <button class="sound control" type="button">
+                            <span class="material-icons volume_icon">
+                                volume_up
+                            </span>
+                            <span class="material-icons volume_off_icon hidden">
+                                volume_off
+                            </span>
+                        </button>
+                        <input class="sound_bar" value="1" type="range" max="1" min="0" step="0.01" />
+                        <button class="settings control" type="button">
+                            <span class="material-icons">
+                                settings
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="controls_row">
+                    <input type="range" min="0" max="100" class="timeline" value="0" />
+                </div>
+            </div>
+            <div class="settings_dropdown dropdown hide">
+                <div class="dropdown_item quality">
+                    Качество <span>720p</span>
+                </div>
+                <div class="dropdown_item autoplay">
+                    Воспроизведение <span>Авто</span>
+                </div>
+                <div class="dropdown_item subtitles">
+                    Субтитры <span>Выкл.</span>
+                </div>
+            </div>
+            <div class="quality_dropdown dropdown hide">
+                <div class="dropdown_item">
+                    360p
+                </div>
+                <div class="dropdown_item">
+                    480p
+                </div>
+                <div class="dropdown_item">
+                    720p
+                </div>
+                <div class="dropdown_item">
+                    1080p
+                </div>
+            </div>
+            <div class="autoplay_dropdown dropdown hide">
+                <div class="dropdown_item enable_autoplay">
+                    Авто
+                </div>
+                <div class="dropdown_item disable_autoplay">
+                    Выкл.
+                </div>
+            </div>
+            <div class="subtitles_dropdown dropdown hide">
+                <div class="dropdown_item subtitles_off">Выкл.</div>
+            </div>
+            <div class="big_play_button hide">
+                <span class="material-icons">
+                    play_arrow
+                </span>
+                <span class="material-icons hidden">
+                    pause
+                </span>
+                <span class="material-icons hidden">
+                    skip_next
+                </span>
+            </div>
+            <progress class="next_episode_progress hide" max="100" value="0"></progress>
+        </div>
+
+    </div>
+
+    <div class="box about">
+        <h1 class="box_title">О сериале</h1>
+        <div class="info_with_cover">
+            <img class="item_cover" src="{{ item.cover }}">
+            <div class="info">
+                <div class="info_item title">
+                    {{ item.title }}
+                </div>
+                {% if item.info.release_date %}
+                <div class="info_item">
+                    Дата выхода: <span>{{ item.info.release_date }}</span>
+                </div>
+                {% endif %}
+                {% if item.info.slogan %}
+                <div class="info_item">
+                    Слоган: <span>{{ item.info.slogan }}</span>
+                </div>
+                {% endif %}
+                {% if item.info.country %}
+                <div class="info_item">
+                    Страна: <span>{{ item.info.country }}</span>
+                </div>
+                {% endif %}
+                {% if item.info.director %}
+                <div class="info_item">
+                    Режиссер: <span>{{ item.info.director }}</span>
+                </div>
+                {% endif %}
+                {% if item.info.genre %}
+                <div class="info_item">
+                    Жанр: <span>{{ item.info.genre }}</span>
+                </div>
+                {% endif %}
+                {% if item.info.cast %}
+                <div class="info_item">
+                    В ролях актеры: <span>{{ item.info.cast }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="pure_text">{{ item.about }}</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/main.new.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/player.js') }}"></script>
+{% endblock %}

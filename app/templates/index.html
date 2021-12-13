@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="box">
+        <h1 class="box_title">Добро пожаловать на версию 2.0</h1>
+        <div class="pure_text">{{ welcome_message }}</div>
+    </div>
+    <div class="box">
+        <h1 class="box_title">Популярно сейчас</h1>
+        <div class="item_list">
+            {% for item in newest_list %}
+                <div class="item">
+                    <a href="{{ item.src }}">
+                        <img class="item_cover" src="{{ item.cover }}">
+                        <div class="item_title">{{ item.title }}</div>
+                        <div class="item_summary">{{ item.summary }} </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="box">
+        <h1 class="box_title">Стоит посмотреть</h1>
+        <div class="item_list">
+            {% for item in must_watch_list %}
+                <div class="item">
+                    <a href="{{ item.src }}">
+                        <img class="item_cover" src="{{ item.cover }}">
+                        <div class="item_title">{{ item.title }}</div>
+                        <div class="item_summary">{{ item.summary }} </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="box">
+        <h1 class="box_title">Результаты поиска</h1>
+        <div class="item_list">
+            {% for item in results %}
+                <div class="item">
+                    <a href="{{ item.src }}">
+                        <img class="item_cover" src="{{ item.cover }}">
+                        <div class="item_title">{{ item.title }}</div>
+                        <div class="item_summary">{{ item.summary }} </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

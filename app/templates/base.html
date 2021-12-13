@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/player.css') }}">
+        {% if title %}
+        <title>{{ title }} - rezka v2.0</title>
+        {% else %}
+        <title>Добро пожаловать на rezka v2.0</title>
+        {% endif %}
+    </head>
+    <body>
+        <div class="header">
+            <div class="header_items">
+                <div class="header_item">
+                    <a href="/index">На главную</a>
+                </div>
+            </div>
+            <div class="search">
+                <form action="{{ url_for('search') }}" method="post" novalidate>
+                    {{ g.search_form.hidden_tag() }}
+                    {{ g.search_form.search() }}
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

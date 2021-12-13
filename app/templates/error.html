@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="box">
+        <h1 class="box_title">Произошла ошибка</h1>
+        <div class="item_list">
+            {% if error_description %}
+            <div class="pure_text">
+                {{ error_description }}: {{ error_id }}
+            </div>
+            {% else %}
+            <div class="pure_text">
+                Неизвестная ошибка: {{ error_id }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

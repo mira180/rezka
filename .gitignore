@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+db/
+dump/
+site/
+*.txt
+!requirements.txt
+*.crt
+*.key
+.env
+.flaskenv
