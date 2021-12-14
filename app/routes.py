@@ -84,7 +84,13 @@ def watch(id_):
             new_values['type'] = result['type'] # добавляем тип
         db.update('items', {'_id': id_}, new_values)
         item = db.find('items', {'_id': id_})
-    return render_template('watch.html', item=item, title=item['title'])
+    og = {
+        "title": f"{item['title']} – смотреть",
+        "description": item["about"],
+        "image": item["cover"],
+        "url": request.base_url
+    }
+    return render_template('watch.html', item=item, title=item['title'], og=og)
 
 @app.route('/get_stream', methods=['POST'])
 def get_stream():

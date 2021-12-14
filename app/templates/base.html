@@ -14,6 +14,12 @@
         {% else %}
         <title>Добро пожаловать на rezka v2.0</title>
         {% endif %}
+        {% if og %}
+        <meta property="og:title" content="{{ og.title }}">
+        <meta property="og:image" content="{{ og.image }}">
+        <meta property="og:description" content="{{ og.description }}">
+        <meta property="og:url" content="{{ og.url }}">
+        {% endif %}
     </head>
     <body>
         <div class="header">
