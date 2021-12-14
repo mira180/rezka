@@ -8,7 +8,7 @@ import logging
 from db import Database
 from rezka import Rezka
 
-from .config import DB_URI, TIME_PATTERN, UPDATE_INTERVAL
+from .config import DB_URI, TIME_PATTERN, UPDATE_INTERVAL, TYPE_MOVIE
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +85,7 @@ def watch(id_):
         db.update('items', {'_id': id_}, new_values)
         item = db.find('items', {'_id': id_})
     og = {
-        "title": f"{item['title']} – смотреть",
+        "title": f"{item['title']} – смотреть {'фильм' if item['type'] == TYPE_MOVIE else 'сериал'}",
         "description": item["about"],
         "image": item["cover"],
         "url": request.base_url
